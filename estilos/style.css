@@ -10,9 +10,9 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e5e6e2;
+    background-color: #9bc4eb;
     width: 500px;
     margin: 0 auto;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.458);
+    box-shadow: 3px 3px 5px rgba(180, 8, 8, 0.458);
 
 }
