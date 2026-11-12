@@ -1,18 +1,62 @@
-*{
+* {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
-body{
+
+body {
     background-color: #ccda10;
-    
 }
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+main {
+    /* Removido o display: flex para permitir o uso de float e blocos normais */
     background-color: #9bc4eb;
     width: 500px;
+    padding: 20px;
     margin: 0 auto;
     box-shadow: 3px 3px 5px rgba(180, 8, 8, 0.458);
+}
 
+/* Centraliza o título e a imagem principal dentro do header */
+header {
+    text-align: center;
+}
+
+/* Imagem principal do topo (logo do curso em vídeo) */
+header img {
+    width: 200px;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: rgb(58, 0, 112);
+}
+
+h2 {
+    font-size: 1.3em;
+    color: rgb(58, 0, 112);
+}
+
+/* Faz a imagem flutuar à direita e o texto contornar ela */
+img.lado {
+    float: right;
+    width: 120px;
+    height: auto;
+    margin-left: 15px; /* Dá um espaçamento entre a imagem e o texto */
+}
+
+/* Limpa o float para o próximo article não subir incorretamente */
+article {
+    clear: both;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(26, 0, 112);
+}
+
+a:hover {
+    color: rgb(26, 26, 255);
 }
