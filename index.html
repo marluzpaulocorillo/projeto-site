@@ -1,29 +1,274 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apenas testes </title>
-    <link rel="stylesheet" href="estilos/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f0">
+  <meta name="description" content="Descubra fragrâncias especiais na Unique.">
+  <title>Unique | Perfumaria</title>
+  <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
-    <main>
-    <header>
-        <h1>Cursos Grátis</h1>
-        <img src="imagens/curso-em-video-cor.png" alt="Curso em Vídeo">
-    </header>
-    <article>
-        <h2>Curso de HTML5 com CSS3</h2>
-        <img class="lado" src="imagens/curso-html-css.png" alt="Curso HTML">
-        <p>A <abbr title="HyperText Markup Language">HTML</abbr> é uma linguagem de marcação para a criação de sites. Atualmente na versão 5, ela usa a semântica dos elementos para criar o conteúdo de uma página Web. Com as <abbr title="Cascading Style Sheets">CSS</abbr>, criamos as configurações visuais que um site vai ter.</p>
-        <p><a href="curso de html.html">Acesse o curso de HTML5</a></p>
-    </article>
-    <article>
-        <h2>Curso de JavaScript</h2>
-        <img class="lado" src="imagens/curso-javascript.png" alt="Curso JS">
-        <p><abbr title="JavaScript">JavaScript</abbr> é uma linguagem de script criada para aumentar a interatividade entre um site e seus visitantes. Os códigos em JS são executados dentro do navegador e dão acesso aos elementos HTML por meio do <abbr title="Document Object Model">DOM</abbr>.</p>
-        <p><a href="curso de javascript.html">Acesse o curso de JavaScript</a></p>
-    </article>
-</main>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Unique — início">
+      <img
+        class="brand__logo"
+        src="imagens/unique/logo quadrada.png"
+        alt="Unique Presentes"
+      >
+    </a>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#colecao">Coleção</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero__content">
+        <p class="eyebrow">A cada fragrância uma nova lembrança</p>
+        <h1>Uma fragrância.<br><em>Uma história na memória.</em></h1>
+        <p class="hero__text">
+          Encontre o perfume que traduz a sua essência.
+          Uma seleção pensada para acompanhar momentos únicos.
+        </p>
+        <a class="button button--dark" href="#colecao">Explorar coleção</a>
+      </div>
+      <div class="hero__ornament" aria-hidden="true">
+        <span class="hero__circle"></span>
+        <span class="hero__initial">UNIQUE<small>Presentes</small></span>
+      </div>
+    </section>
+
+    <section class="collection section" id="colecao">
+      <div class="section-heading">
+        <p class="eyebrow">Nossa Perfumaria</p>
+        <h2>Encontre sua fragrância</h2>
+        <p>Uma seleção especial para cada personalidade.</p>
+      </div>
+
+      <div class="catalog-controls">
+        <div class="filters" role="group" aria-label="Filtrar por categoria">
+          <button class="filter-button is-active" type="button" data-category="Todos" aria-pressed="true">Todos</button>
+          <button class="filter-button" type="button" data-category="Femininos" aria-pressed="false">Femininos</button>
+          <button class="filter-button" type="button" data-category="Masculinos" aria-pressed="false">Masculinos</button>
+        </div>
+
+        <label class="search">
+          <span class="visually-hidden">Buscar perfume pelo nome</span>
+          <input id="search-input" type="search" placeholder="Buscar perfume..." autocomplete="off">
+          <span class="search__icon" aria-hidden="true">⌕</span>
+        </label>
+      </div>
+
+      <p class="results-count" id="results-count" aria-live="polite"></p>
+      <div class="product-grid" id="product-grid"></div>
+      <p class="empty-state" id="empty-state" hidden>Nenhum perfume encontrado. Tente outra busca ou categoria.</p>
+    </section>
+
+    <section class="about section" id="sobre">
+      <p class="eyebrow">Unique</p>
+      <h2>Escolhas que ficam na memória.</h2>
+      <p>Uma experiência de perfumaria feita para celebrar sua individualidade, momentos e atitudes.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand--footer" href="#inicio" aria-label="Unique — voltar ao início">
+      <span class="brand__name">UNIQUE</span>
+      <span class="brand__caption">PERFUMARIA</span>
+    </a>
+    <p>Fragrâncias para momentos únicos.</p>
+    <small>© <span id="current-year"></span> Unique. Todos os direitos reservados.</small>
+  </footer>
+
+  <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" type="button" aria-label="Fechar detalhes">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <script>
+    const feminineFiles = [
+      ["Pretty women", "fragancia NO  (003)Pretty women.jpeg"],
+      ["L'adore", "fragancia NO  (007) L'adore.jpeg"],
+      ["Vip lady", "fragancia NO  (009) Vip lady.jpeg"],
+      ["Bautiful life", "fragancia NO  (012) Bautiful life.jpeg"],
+      ["Miss Dear", "fragancia NO  (015) Miss Dear.jpeg"],
+      ["By coconut", "fragancia NO  (021) By coconut.jpeg"],
+      ["Toxic red", "fragancia NO  (027) Toxic red.jpeg"],
+      ["Rose Lady", "fragancia NO  (034)Rose Lady.jpeg"],
+      ["Chance", "fragancia NO  (039) Chance.jpeg"],
+      ["Sublime", "fragancia NO  (049) Sublime.jpeg"],
+      ["Flower", "fragancia NO  (069) flower.jpeg"],
+      ["Pour femme", "fragancia NO  (085)Pour femme.jpeg"],
+      ["Olimpic", "fragancia NO  (087) Olimpic.jpeg"],
+      ["Light Blue", "fragancia NO  (093) Light Blue.jpeg"],
+      ["Eupho", "fragancia NO  (097) Eupho.jpeg"],
+      ["Billionaires", "fragancia NO  (105) Billionaires.jpeg"],
+      ["Good Girl", "fragancia NO  (126) Beauty girl.jpeg"],
+      ["Scandal", "fragancia NO  (136) Scandal.jpeg"],
+      ["Love Love", "fragancia NO  (138) Love Love.jpeg"],
+      ["Diana", "fragancia NO  (151) Diana.jpeg"],
+      ["Lideritty", "fragancia NO  (159) Lideritty.jpeg"],
+      ["Hypnotic", "fragancia NO  (163) Hypnotic.jpeg"],
+      ["Amen", "fragancia NO  (168) Amen.jpeg"],
+      ["Female", "fragancia NO  (171) Female.jpeg"],
+      ["Khloe", "fragancia NO  (177) khloe.jpeg"],
+      ["Di Black", "fragancia NO  (184) Di Black.jpeg"],
+      ["That's My Way", "fragancia NO  (188) that's my way.jpeg"],
+      ["Sexy Lady", "fragancia NO  (194)Sexy Lady.jpeg"],
+      ["Red XS", "fragancia NO  (210) Red xs.jpeg"],
+      ["Bedong to You", "fragancia NO  (233) Bedong to you.jpeg"],
+      ["Idol", "fragancia NO  (238) Idol.jpeg"],
+      ["Her Burberry", "fragancia NO  (246) Her burberry.jpeg"],
+      ["Beccarat", "fragancia NO  (247) Beccarat.jpeg"],
+      ["Ms. Dylan", "fragancia NO  (265) Ms. Dylan.jpeg"],
+      ["Red Royal", "fragancia NO  (289) Red Royal .jpeg"],
+      ["Taboos Rouge", "fragancia NO  (294) Taboos Rouge.jpeg"],
+      ["Cotton Candy", "fragancia NO  (295)Cotton candy.jpeg"],
+      ["Bellaza Intense", "fragancia NO  (324)Bellaza intense.jpeg"],
+      ["Dylan Turquaise", "fragancia NO  (351) Dylan turquaise.jpeg"],
+      ["Renown", "fragancia NO  (365) Renown.jpeg"],
+      ["Erba Pura", "fragancia NO  (402) Erba pura.jpeg"]
+    ];
+
+    const masculineFiles = [
+      ["Attraction Men", "fragancia NO  (001) Attraction Men.jpeg"],
+      ["Herrera Men", "fragancia NO  (004) Herrera Men.jpeg"],
+      ["Billions", "fragancia NO  (005)  billions.jpeg"],
+      ["Vip Men", "fragancia NO  (008) Vip men.jpeg"],
+      ["White Alligator", "fragancia NO  (016) White alligator.jpeg"],
+      ["Green Ball", "fragancia NO  (028) Green ball.jpeg"],
+      ["Euphorie for Men", "fragancia NO  (091) Euphorie for men.jpeg"],
+      ["Untamable", "fragancia NO  (100) Untamable.jpeg"],
+      ["Winner INV", "fragancia NO  (116) Winner INV.jpeg"],
+      ["Male", "fragancia NO  (153) Male.jpeg"],
+      ["Classic Black", "fragancia NO  (154) Classic Black.jpeg"],
+      ["Only One", "fragancia NO  (162) Only one.jpeg"],
+      ["Pure XZ", "fragancia NO  (178) Pure xz.jpeg"],
+      ["XS", "fragancia NO  (202) xs.jpeg"],
+      ["Staying It with You", "fragancia NO  (232) Staying It with you.jpeg"],
+      ["Warrant Boy", "fragancia NO  (250) Warrant boy.jpeg"],
+      ["Fearless", "fragancia NO  (266) Fearless.jpeg"],
+      ["Good Job", "fragancia NO  (285) Good job.jpeg"],
+      ["Black Scuderia", "fragancia NO  (286) Black Scuderia.jpeg"],
+      ["Victory Platinum", "fragancia NO(350) Victory platinum.jfif"]
+    ];
+
+    const createProducts = (files, category, folder, startId) =>
+      files.map(([nome, arquivo], index) => ({
+        id: startId + index,
+        nome,
+        categoria: category,
+        preco: ["Erba Pura", "Good Girl"].includes(nome) ? 120 : 100,
+        imagem: `imagens/${folder}/${arquivo}`
+      }));
+
+    const perfumes = [
+      ...createProducts(feminineFiles, "Femininos", "femininos", 1),
+      ...createProducts(masculineFiles, "Masculinos", "masculinos", 41)
+    ];
+
+    const grid = document.querySelector("#product-grid");
+    const searchInput = document.querySelector("#search-input");
+    const emptyState = document.querySelector("#empty-state");
+    const resultsCount = document.querySelector("#results-count");
+    const dialog = document.querySelector("#product-dialog");
+    const dialogContent = document.querySelector("#dialog-content");
+    let activeCategory = "Todos";
+
+    const formatPrice = (price) =>
+      new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(price);
+
+    const normalizeText = (text) =>
+      text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    function renderProducts() {
+      const query = normalizeText(searchInput.value.trim());
+      const filtered = perfumes.filter((product) => {
+        const matchesCategory = activeCategory === "Todos" || product.categoria === activeCategory;
+        const matchesName = normalizeText(product.nome).includes(query);
+        return matchesCategory && matchesName;
+      });
+
+      resultsCount.textContent = `${filtered.length} ${filtered.length === 1 ? "perfume encontrado" : "perfumes encontrados"}`;
+      emptyState.hidden = filtered.length !== 0;
+
+      grid.innerHTML = filtered.map((product) => `
+        <article class="product-card">
+          <div class="product-card__image-wrap">
+            ${product.imagem
+              ? `<img class="product-card__image" src="${product.imagem}" alt="${product.nome}" loading="lazy">`
+              : `<div class="product-placeholder" aria-label="Imagem de ${product.nome}"><span>UNIQUE</span></div>`}
+            <span class="product-card__category">${product.categoria}</span>
+          </div>
+          <div class="product-card__info">
+            <h3>${product.nome}</h3>
+            <p class="product-card__price">${formatPrice(product.preco)}</p>
+            <button class="button button--outline" type="button" data-product-id="${product.id}">
+              Ver detalhes
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    document.querySelector(".filters").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+
+      activeCategory = button.dataset.category;
+      document.querySelectorAll(".filter-button").forEach((filter) => {
+        const isActive = filter === button;
+        filter.classList.toggle("is-active", isActive);
+        filter.setAttribute("aria-pressed", String(isActive));
+      });
+      renderProducts();
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+
+    grid.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-product-id]");
+      if (!button) return;
+
+      const product = perfumes.find((item) => item.id === Number(button.dataset.productId));
+      if (!product) return;
+
+      const whatsappText = encodeURIComponent(
+        `Olá! Tenho interesse no perfume ${product.nome} (${formatPrice(product.preco)}).`
+      );
+      const whatsappUrl = `https://wa.me/554396825763?text=${whatsappText}`;
+
+      dialogContent.innerHTML = `
+        <p class="eyebrow">${product.categoria}</p>
+        <div class="dialog-product-visual">
+          ${product.imagem
+            ? `<img class="dialog-product-image" src="${product.imagem}" alt="Frasco do perfume ${product.nome}">`
+            : `<div class="product-placeholder dialog-product-placeholder" aria-label="Imagem de ${product.nome}"><span>UNIQUE</span></div>`}
+        </div>
+        <h2 id="dialog-title">${product.nome}</h2>
+        <p class="dialog-price">${formatPrice(product.preco)}</p>
+        <p>Uma fragrância selecionada especialmente para você.</p>
+        <a
+          class="button button--whatsapp"
+          href="${whatsappUrl}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >WhatsApp: Para compra </a>
+      `;
+      dialog.showModal();
+    });
+
+    document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    document.querySelector("#current-year").textContent = new Date().getFullYear();
+    renderProducts();
+  </script>
 </body>
 </html>
