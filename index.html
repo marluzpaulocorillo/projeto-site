@@ -11,9 +11,11 @@
 <body>
   <header class="site-header">
     <a class="brand" href="#" aria-label="Unique — início">
-      <!-- TODO: quando anexar a logo, substitua este wordmark por uma imagem em imagens/unique/. -->
-      <span class="brand__name">UNIQUE</span>
-      <span class="brand__caption">PERFUMARIA</span>
+      <img
+        class="brand__logo"
+        src="imagens/unique/logo quadrada.png"
+        alt="Unique Presentes"
+      >
     </a>
 
     <nav class="main-nav" aria-label="Navegação principal">
@@ -36,7 +38,7 @@
       </div>
       <div class="hero__ornament" aria-hidden="true">
         <span class="hero__circle"></span>
-        <span class="hero__initial">U</span>
+        <span class="hero__initial">UNIQUE<small>Presentes</small></span>
       </div>
     </section>
 
@@ -255,7 +257,7 @@
           href="${whatsappUrl}"
           target="_blank"
           rel="noopener noreferrer"
-        >WhatsApp: +55 (43) 9682-5763</a>
+        >WhatsApp: Para compra </a>
       `;
       dialog.showModal();
     });

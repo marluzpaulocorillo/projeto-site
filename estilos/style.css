@@ -43,13 +43,13 @@ a {
   z-index: 5;
   top: 0;
   display: flex;
-  min-height: 78px;
+  min-height: 150px;
   align-items: center;
   justify-content: space-between;
-  padding: 14px clamp(20px, 7vw, 100px);
+  padding: 9px clamp(20px, 7vw, 10px);
   border-bottom: 1px solid rgb(37 35 31 / 7%);
-  background: rgb(247 245 240 / 94%);
-  backdrop-filter: blur(14px);
+  background: rgba(173, 169, 159, 0.94);
+  backdrop-filter: blur(px);
 }
 
 .brand {
@@ -58,6 +58,12 @@ a {
   align-items: center;
   gap: 3px;
   letter-spacing: 0.16em;
+}
+
+.brand__logo {
+  display: block;
+  width: 190px;
+  height: auto;
 }
 
 .brand__name {
@@ -91,6 +97,7 @@ a {
 
 .hero {
   position: relative;
+  isolation: isolate;
   display: flex;
   min-height: 510px;
   align-items: center;
@@ -99,6 +106,17 @@ a {
   background:
     radial-gradient(ellipse at 82% 55%, rgb(198 183 151 / 20%), transparent 36%),
     linear-gradient(110deg, #f7f5f0 45%, #eee9df);
+}
+
+.hero::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: url("../imagens/unique/logo retangular 1872x576.png") center / contain no-repeat;
+  content: "";
+  opacity: 0.12;
+  -webkit-mask-image: linear-gradient(to right, #000, transparent);
+  mask-image: linear-gradient(to right, #000, transparent);
 }
 
 .hero__content {
@@ -141,6 +159,7 @@ a {
 
 .hero__ornament {
   position: absolute;
+  z-index: 1;
   top: 50%;
   right: clamp(30px, 15vw, 210px);
   display: grid;
@@ -159,10 +178,21 @@ a {
 }
 
 .hero__initial {
-  color: rgb(165 138 88 / 38%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(165 138 88 / 68%);
   font-family: var(--serif);
-  font-size: clamp(100px, 17vw, 190px);
-  font-style: italic;
+  font-size: clamp(24px, 4vw, 42px);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.hero__initial small {
+  font-family: var(--sans);
+  font-size: clamp(9px, 1.1vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.28em;
 }
 
 .button {
@@ -380,8 +410,24 @@ a {
 }
 
 .about {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: #eeebe4;
   text-align: center;
+}
+
+.about::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: url("../imagens/unique/logo retangular 2416x432.png") center / cover no-repeat;
+  content: "";
+  opacity: 0.12;
+}
+
+.about > * {
+  position: relative;
 }
 
 .about h2 {
@@ -512,6 +558,10 @@ a {
 
   .brand__name {
     font-size: 14px;
+  }
+
+  .brand__logo {
+    width: 135px;
   }
 
   .main-nav {
