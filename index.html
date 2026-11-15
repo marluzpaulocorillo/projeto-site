@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5f0">
-  <meta name="description" content="Descubra fragrâncias especiais na Maison Unique.">
-  <title>Maison Unique | Perfumaria</title>
+  <meta name="description" content="Descubra fragrâncias especiais na Unique.">
+  <title>Unique | Perfumaria</title>
   <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#" aria-label="Maison Unique — início">
+    <a class="brand" href="#" aria-label="Unique — início">
       <!-- TODO: quando anexar a logo, substitua este wordmark por uma imagem em imagens/unique/. -->
-      <span class="brand__name">MAISON <span>UNIQUE</span></span>
+      <span class="brand__name">UNIQUE</span>
       <span class="brand__caption">PERFUMARIA</span>
     </a>
 
@@ -26,8 +26,8 @@
   <main>
     <section class="hero" id="inicio">
       <div class="hero__content">
-        <p class="eyebrow">A arte de deixar sua marca</p>
-        <h1>Uma fragrância.<br><em>Uma história.</em></h1>
+        <p class="eyebrow">A cada fragrância uma nova lembrança</p>
+        <h1>Uma fragrância.<br><em>Uma história na memória.</em></h1>
         <p class="hero__text">
           Encontre o perfume que traduz a sua essência.
           Uma seleção pensada para acompanhar momentos únicos.
@@ -36,13 +36,13 @@
       </div>
       <div class="hero__ornament" aria-hidden="true">
         <span class="hero__circle"></span>
-        <span class="hero__initial">M</span>
+        <span class="hero__initial">U</span>
       </div>
     </section>
 
     <section class="collection section" id="colecao">
       <div class="section-heading">
-        <p class="eyebrow">Nossa curadoria</p>
+        <p class="eyebrow">Nossa Perfumaria</p>
         <h2>Encontre sua fragrância</h2>
         <p>Uma seleção especial para cada personalidade.</p>
       </div>
@@ -52,7 +52,6 @@
           <button class="filter-button is-active" type="button" data-category="Todos" aria-pressed="true">Todos</button>
           <button class="filter-button" type="button" data-category="Femininos" aria-pressed="false">Femininos</button>
           <button class="filter-button" type="button" data-category="Masculinos" aria-pressed="false">Masculinos</button>
-          <button class="filter-button" type="button" data-category="Unique" aria-pressed="false">Unique</button>
         </div>
 
         <label class="search">
@@ -68,19 +67,19 @@
     </section>
 
     <section class="about section" id="sobre">
-      <p class="eyebrow">Maison Unique</p>
+      <p class="eyebrow">Unique</p>
       <h2>Escolhas que ficam na memória.</h2>
-      <p>Uma experiência de perfumaria feita para celebrar sua individualidade.</p>
+      <p>Uma experiência de perfumaria feita para celebrar sua individualidade, momentos e atitudes.</p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <a class="brand brand--footer" href="#inicio" aria-label="Maison Unique — voltar ao início">
-      <span class="brand__name">MAISON <span>UNIQUE</span></span>
+    <a class="brand brand--footer" href="#inicio" aria-label="Unique — voltar ao início">
+      <span class="brand__name">UNIQUE</span>
       <span class="brand__caption">PERFUMARIA</span>
     </a>
     <p>Fragrâncias para momentos únicos.</p>
-    <small>© <span id="current-year"></span> Maison Unique. Todos os direitos reservados.</small>
+    <small>© <span id="current-year"></span> Unique. Todos os direitos reservados.</small>
   </footer>
 
   <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
@@ -106,7 +105,7 @@
       ["Light Blue", "fragancia NO  (093) Light Blue.jpeg"],
       ["Eupho", "fragancia NO  (097) Eupho.jpeg"],
       ["Billionaires", "fragancia NO  (105) Billionaires.jpeg"],
-      ["Beauty girl", "fragancia NO  (126) Beauty girl.jpeg"],
+      ["Good Girl", "fragancia NO  (126) Beauty girl.jpeg"],
       ["Scandal", "fragancia NO  (136) Scandal.jpeg"],
       ["Love Love", "fragancia NO  (138) Love Love.jpeg"],
       ["Diana", "fragancia NO  (151) Diana.jpeg"],
@@ -161,17 +160,13 @@
         id: startId + index,
         nome,
         categoria: category,
-        preco: Number((149.90 + (index % 8) * 17.50).toFixed(2)),
+        preco: ["Erba Pura", "Good Girl"].includes(nome) ? 120 : 100,
         imagem: `imagens/${folder}/${arquivo}`
       }));
 
-    // Os valores são demonstrativos; substitua pelos preços reais antes de publicar.
     const perfumes = [
       ...createProducts(feminineFiles, "Femininos", "femininos", 1),
-      ...createProducts(masculineFiles, "Masculinos", "masculinos", 41),
-      { id: 61, nome: "Essência Dourada", categoria: "Unique", preco: 289.90, imagem: null },
-      { id: 62, nome: "Âmbar Exclusivo", categoria: "Unique", preco: 319.90, imagem: null },
-      { id: 63, nome: "Elixir Maison", categoria: "Unique", preco: 349.90, imagem: null }
+      ...createProducts(masculineFiles, "Masculinos", "masculinos", 41)
     ];
 
     const grid = document.querySelector("#product-grid");
